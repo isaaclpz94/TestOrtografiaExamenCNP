@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_test_examen"
+            android:icon="@drawable/ic_lead_pencil_grey600_18dp"
+            android:title="Realizar test" />
+        <item
+            android:id="@+id/nav_test_fallos"
+            android:icon="@drawable/ic_alert_circle_grey600_18dp"
+            android:title="Test de fallos" />
+        <item
+            android:id="@+id/nav_evolucion"
+            android:icon="@drawable/ic_chart_areaspline_grey600_18dp"
+            android:title="Mi evolución" />
+
+    </group>
+
+    <item android:title="Ayúdanos">
+        <menu>
+            <item
+                android:id="@+id/nav_compartir"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Compartir" />
+        </menu>
+    </item>
+
+</menu>

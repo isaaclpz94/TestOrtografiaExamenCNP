@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/primary_material_dark"
+    android:id="@+id/content_principal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.administrador.testortografiaexamencnp.Principal"
+    tools:showIn="@layout/app_bar_principal"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srcCompat="@drawable/cuerpo_nacional_policia"
+        android:layout_marginLeft="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_weight="1"
+        android:id="@+id/imageView2"
+        android:adjustViewBounds="true"
+        android:cropToPadding="false" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2.5"
+        android:text="SIMULADOR DE EXAMEN DE ORTOGRAFÍA DEL CNP. LOS TEST SON SIMULACIONES DEL MODELO REAL DEL EXAMEN."
+        android:textColor="@android:color/white"
+        android:id="@+id/tvDesc"
+        android:gravity="center_vertical"
+        android:layout_margin="40dp" />
+</LinearLayout>
