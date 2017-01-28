@@ -1,31 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
-    android:background="@drawable/fondo"
+    android:background="@color/gris_secundario"
     android:gravity="bottom"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="horizontal"
+
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="100dp"
-        android:layout_height="match_parent"
-        app:srcCompat="@mipmap/ic_cnp"
-        android:adjustViewBounds="false"
-        android:cropToPadding="false"
-        android:layout_weight="1"/>
-
-    <TextView
+    <LinearLayout
+        android:layout_weight="1"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Simulador examen ortografía"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:layout_weight="6" />
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="false"
+            android:src="@drawable/ic_cnp_logo_blanco"
+            android:cropToPadding="false"
+            android:layout_weight="1"
+            android:layout_gravity="left" />
+
+
+        <com.example.administrador.testortografiaexamencnp.utils.MyCustomTextView
+            android:id="@+id/nav_titulo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Simulador examen ortografía"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:layout_weight="7"
+            android:textSize="13sp"
+            android:gravity="center_horizontal" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="10"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_gravity="right"
+            android:src="@drawable/tr_esp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+
+
+    </LinearLayout>
+
 
 </LinearLayout>

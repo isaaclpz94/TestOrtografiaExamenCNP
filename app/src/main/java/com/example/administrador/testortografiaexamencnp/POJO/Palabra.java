@@ -65,4 +65,12 @@ public class Palabra {
 
     }
 
+    @Override
+    public String toString() {
+        return "Palabra{" +
+                "id=" + id +
+                ", correcta=" + correcta +
+                ", palabra='" + palabra + '\'' +
+                '}';
+    }
 }

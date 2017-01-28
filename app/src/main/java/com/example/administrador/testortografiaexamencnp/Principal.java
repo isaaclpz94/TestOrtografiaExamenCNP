@@ -1,16 +1,9 @@
 package com.example.administrador.testortografiaexamencnp;
 
-import android.content.ContentResolver;
-import android.database.Cursor;
+import android.content.Intent;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -19,33 +12,36 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.example.administrador.testortografiaexamencnp.POJO.Palabra;
-import com.example.administrador.testortografiaexamencnp.contrato.ContratoPalabras;
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
+import com.example.administrador.testortografiaexamencnp.nav_test.ModoExamen;
+import com.example.administrador.testortografiaexamencnp.nav_test.NavTest;
 
 public class Principal extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final Uri uriP = ContratoPalabras.TablaPalabras.CONTENT_URI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Quitamos barra de titulo de la aplicacion
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_principal);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        TextView tvTitulooToolbar  = (TextView)findViewById(R.id.tvTituloToolbar);
+
+        //FINDVIEWBYID & TYPEFACES
+        TextView tvTituloToolbar  = (TextView)findViewById(R.id.tvTituloToolbar);
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/terminator.ttf");
-        tvTitulooToolbar.setTypeface(tf);
+        tvTituloToolbar.setTypeface(tf);
         setSupportActionBar(toolbar);
 
-        TextView tvDesc = (TextView)findViewById(R.id.tvDesc);
         Typeface tf2 = Typeface.createFromAsset(getAssets(), "fonts/Orbitron.ttf");
+        TextView tvDesc = (TextView)findViewById(R.id.tvDesc);
         tvDesc.setTypeface(tf2);
-
+        
+        //Navigationdrawer
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -60,37 +56,17 @@ public class Principal extends AppCompatActivity implements NavigationView.OnNav
         Uri uri = getContentResolver().insert(uriP, palabra.getContentValues());
         uri.toString();*/
 
-        //Columnas de la tabla a recuperar
-        String[] projection = new String[] {
-                ContratoPalabras.TablaPalabras.PALABRA,
-                ContratoPalabras.TablaPalabras.CORRECTA};
 
 
-        ContentResolver cr = getContentResolver();
-
-        //Hacemos la consulta
-        Cursor cur = cr.query(uriP,
-                projection, //Columnas a devolver
-                null,       //Condición de la query
-                null,       //Argumentos variables de la query
-                null);      //Orden de los resultados
-
-        if(cur.moveToFirst()){
-            do{
-                String palabra = cur.getString(0);
-                int correcta = cur.getInt(1);
-                Log.v("AQUÍ", palabra + " " + correcta);
-            }while(cur.moveToNext());
-        }else{
-            Log.v("AQUÍ", "vacío");
-        }
-
+        //
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch(item.getItemId()){
                     case R.id.nav_test_examen:
+                        Intent i = new Intent(Principal.this, NavTest.class);
+                        startActivity(i);
                         break;
                     case R.id.nav_test_fallos:
                         break;
