@@ -15,7 +15,8 @@ import android.widget.TextView;
 
 import com.example.administrador.testortografiaexamencnp.POJO.Palabra;
 import com.example.administrador.testortografiaexamencnp.R;
-import com.example.administrador.testortografiaexamencnp.contrato.ContratoPalabras;
+import com.example.administrador.testortografiaexamencnp.contrato.ContratoPalabrasCorrectas;
+import com.example.administrador.testortografiaexamencnp.contrato.ContratoPalabrasIncorrectas;
 
 import java.util.ArrayList;
 
@@ -25,7 +26,8 @@ import java.util.ArrayList;
 
 public class ModoExamen extends AppCompatActivity {
 
-    private static final Uri uriP = ContratoPalabras.TablaPalabras.CONTENT_URI;
+    private static final Uri uriPI = ContratoPalabrasIncorrectas.TablaPalabrasIncorrectas.CONTENT_URI;
+    private static final Uri uriPC = ContratoPalabrasCorrectas.TablaPalabrasCorrectas.CONTENT_URI;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,30 +56,25 @@ public class ModoExamen extends AppCompatActivity {
 
         //AÑADIMOS DATOS AL RECYCLERVIEW
         //Hacemos la consulta y añadimos todas las palabras al arraylist
-        ArrayList<Palabra> palabras = new ArrayList<>();
         String[] projection = new String[] {
-                ContratoPalabras.TablaPalabras.PALABRA,
-                ContratoPalabras.TablaPalabras.CORRECTA};
+                ContratoPalabrasIncorrectas.TablaPalabrasIncorrectas.PALABRA};
 
         ContentResolver cr = getContentResolver();
 
-        Cursor cur = cr.query(uriP,
-                projection, //Columnas a devolver
+        Cursor cur = cr.query(uriPI,
+                new String[]{ContratoPalabrasIncorrectas.TablaPalabrasIncorrectas.PALABRA}, //Columnas a devolver
                 null,       //Condición de la query
                 null,       //Argumentos variables de la query
                 null);      //Orden de los resultados
+        ArrayList<Palabra> palabras = new ArrayList<>();
 
-        Palabra p  = new Palabra();
         assert cur != null;
-        if(cur.moveToFirst()){
-            do{
-                String txtpalabra = cur.getString(0);
-                int correcta = cur.getInt(1);
-
-                p.setPalabra(txtpalabra);
-                p.setCorrecta(correcta);
-                palabras.add(p);
-            }while(cur.moveToNext());
+        while(cur.moveToNext()){
+            Palabra p  = new Palabra();
+            p.setId(cur.getInt(cur.getColumnIndex("_id")));
+            p.setPalabra(cur.getString(cur.getColumnIndex("palabra")));
+            Log.v("pruebapalabra", p.getPalabra());
+            palabras.add(p);
         }
 
         for (Palabra pal: palabras){

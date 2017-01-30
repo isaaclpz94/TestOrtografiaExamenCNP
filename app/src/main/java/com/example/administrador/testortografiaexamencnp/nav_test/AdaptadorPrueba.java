@@ -33,7 +33,6 @@ public class AdaptadorPrueba extends RecyclerView.Adapter<AdaptadorPrueba.ViewHo
 
         public void bindTitular(Palabra p){
             txtPalabra.setText(p.getPalabra());
-            correcta.setText(p.getCorrecta()+"");
         }
     }
 

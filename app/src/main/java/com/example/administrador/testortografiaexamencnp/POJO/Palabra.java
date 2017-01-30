@@ -3,7 +3,7 @@ package com.example.administrador.testortografiaexamencnp.POJO;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import com.example.administrador.testortografiaexamencnp.contrato.ContratoPalabras;
+import com.example.administrador.testortografiaexamencnp.contrato.ContratoPalabrasCorrectas;
 
 /**
  * Created by Administrador on 25/01/2017.
@@ -12,16 +12,14 @@ import com.example.administrador.testortografiaexamencnp.contrato.ContratoPalabr
 public class Palabra {
 
     private long id;
-    private int correcta;
     private String palabra;
 
     public Palabra(){
-        this(0, 1,"");
+        this(0, "");
     }
 
-    public Palabra(long id, int correcta, String palabra){
+    public Palabra(long id, String palabra){
         this.id=id;
-        this.correcta=correcta;
         this.palabra=palabra;
     }
 
@@ -31,14 +29,6 @@ public class Palabra {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public int getCorrecta() {
-        return correcta;
-    }
-
-    public void setCorrecta(int correcta) {
-        this.correcta = correcta;
     }
 
     public String getPalabra() {
@@ -52,16 +42,14 @@ public class Palabra {
 
     public ContentValues getContentValues(){
         ContentValues cv = new ContentValues();
-        cv.put(ContratoPalabras.TablaPalabras._ID,this.id);
-        cv.put(ContratoPalabras.TablaPalabras.PALABRA,this.palabra);
-        cv.put(ContratoPalabras.TablaPalabras.CORRECTA,this.correcta);
+        cv.put(ContratoPalabrasCorrectas.TablaPalabrasCorrectas._ID,this.id);
+        cv.put(ContratoPalabrasCorrectas.TablaPalabrasCorrectas.PALABRA,this.palabra);
         return cv;
     }
 
     public void set(Cursor c){ //A partir del cursor recuperar nombre, apellido y telefono
-        this.id = c.getLong(c.getColumnIndex(ContratoPalabras.TablaPalabras._ID));
-        this.palabra = c.getString(c.getColumnIndex(ContratoPalabras.TablaPalabras.PALABRA));
-        this.correcta= c.getInt(c.getColumnIndex(ContratoPalabras.TablaPalabras.CORRECTA));
+        this.id = c.getLong(c.getColumnIndex(ContratoPalabrasCorrectas.TablaPalabrasCorrectas._ID));
+        this.palabra = c.getString(c.getColumnIndex(ContratoPalabrasCorrectas.TablaPalabrasCorrectas.PALABRA));
 
     }
 
@@ -69,7 +57,6 @@ public class Palabra {
     public String toString() {
         return "Palabra{" +
                 "id=" + id +
-                ", correcta=" + correcta +
                 ", palabra='" + palabra + '\'' +
                 '}';
     }

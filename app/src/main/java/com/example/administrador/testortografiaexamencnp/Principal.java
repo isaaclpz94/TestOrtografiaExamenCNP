@@ -2,6 +2,7 @@ package com.example.administrador.testortografiaexamencnp;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -10,17 +11,25 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.example.administrador.testortografiaexamencnp.POJO.Palabra;
+import com.example.administrador.testortografiaexamencnp.contrato.ContratoPalabrasCorrectas;
+import com.example.administrador.testortografiaexamencnp.contrato.ContratoPalabrasIncorrectas;
 import com.example.administrador.testortografiaexamencnp.nav_test.ModoExamen;
 import com.example.administrador.testortografiaexamencnp.nav_test.NavTest;
 
+import java.util.ArrayList;
+
 public class Principal extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final Uri uriPI = ContratoPalabrasIncorrectas.TablaPalabrasIncorrectas.CONTENT_URI;
+    private static final Uri uriPC = ContratoPalabrasCorrectas.TablaPalabrasCorrectas.CONTENT_URI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +58,19 @@ public class Principal extends AppCompatActivity implements NavigationView.OnNav
         toggle.syncState();
 
         //Insertar palabra de prueba
-        /*ArrayList<Palabra> palabras = new ArrayList<>();
-        Palabra palabra = new Palabra(0, 1, "prueba");
-        palabras.add(palabra);
+        ArrayList<Palabra> palabras = new ArrayList<>();
+        Palabra palabra1 = new Palabra(888, "prueba");
+        Palabra palabra2 = new Palabra(999, "prueba2");
+        Palabra palabra3 = new Palabra(0101011, "prueba3");
+        palabras.add(palabra1);
+        palabras.add(palabra2);
+        palabras.add(palabra3);
 
-        Uri uri = getContentResolver().insert(uriP, palabra.getContentValues());
-        uri.toString();*/
+
+        /*for(Palabra p: palabras) {
+            Uri uri = getContentResolver().insert(uriPC, p.getContentValues());
+            Log.v("uri",uri.toString());
+        }*/
 
 
 
@@ -105,7 +121,7 @@ public class Principal extends AppCompatActivity implements NavigationView.OnNav
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.descargar_palabras) {
             return true;
         }
 
