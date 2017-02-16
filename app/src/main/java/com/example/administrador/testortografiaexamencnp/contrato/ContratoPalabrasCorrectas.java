@@ -12,6 +12,7 @@ public class ContratoPalabrasCorrectas {
     public static abstract class TablaPalabrasCorrectas implements BaseColumns {
         public static final String TABLA = "p_correctas";
         public static final String PALABRA = "palabra";
+        public static final String PALABRAINCORRECTA_ID = "palabraincorrecta_id";
 
         //La autoridad es la cadena q identifica a qué contentprovider se llama
         public final static String AUTHORITY = "com.example.administrador.testortografiaexamencnp.provider.ProveedorClientes";

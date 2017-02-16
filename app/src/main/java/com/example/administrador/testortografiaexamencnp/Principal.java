@@ -1,6 +1,8 @@
 package com.example.administrador.testortografiaexamencnp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,6 +26,10 @@ import com.example.administrador.testortografiaexamencnp.contrato.ContratoPalabr
 import com.example.administrador.testortografiaexamencnp.nav_test.ModoExamen;
 import com.example.administrador.testortografiaexamencnp.nav_test.NavTest;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class Principal extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -49,7 +55,7 @@ public class Principal extends AppCompatActivity implements NavigationView.OnNav
         Typeface tf2 = Typeface.createFromAsset(getAssets(), "fonts/Orbitron.ttf");
         TextView tvDesc = (TextView)findViewById(R.id.tvDesc);
         tvDesc.setTypeface(tf2);
-        
+
         //Navigationdrawer
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -58,7 +64,7 @@ public class Principal extends AppCompatActivity implements NavigationView.OnNav
         toggle.syncState();
 
         //Insertar palabra de prueba
-        ArrayList<Palabra> palabras = new ArrayList<>();
+        /*ArrayList<Palabra> palabras = new ArrayList<>();
         Palabra palabra1 = new Palabra(888, "prueba");
         Palabra palabra2 = new Palabra(999, "prueba2");
         Palabra palabra3 = new Palabra(0101011, "prueba3");
@@ -67,11 +73,20 @@ public class Principal extends AppCompatActivity implements NavigationView.OnNav
         palabras.add(palabra3);
 
 
-        /*for(Palabra p: palabras) {
+        for(Palabra p: palabras) {
             Uri uri = getContentResolver().insert(uriPC, p.getContentValues());
             Log.v("uri",uri.toString());
         }*/
 
+        //palabras
+        /*try {
+            ArrayList<String> words = readFromAssets(this, "palabras.txt");
+            for(String palabra: words){
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
 
 
         //
@@ -95,6 +110,8 @@ public class Principal extends AppCompatActivity implements NavigationView.OnNav
             }
         });
     }
+
+
 
     @Override
     public void onBackPressed() {

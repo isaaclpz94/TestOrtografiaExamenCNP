@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -54,15 +56,23 @@ public class ModoExamen extends AppCompatActivity {
             }
         });
 
-        //AÑADIMOS DATOS AL RECYCLERVIEW
+        ViewPager viewPager = (ViewPager)findViewById(R.id.viewpager);
+        viewPager.setAdapter(new AdaptadorPestañas(getSupportFragmentManager()));
+
+        TabLayout tablayout = (TabLayout)findViewById(R.id.appbartabs);
+        tablayout.setTabMode(TabLayout.MODE_FIXED);
+        tablayout.setupWithViewPager(viewPager);
+
+        //EXTRAEMOS LOS DATOS A AÑADIR AL RECYCLERVIEW
         //Hacemos la consulta y añadimos todas las palabras al arraylist
         String[] projection = new String[] {
-                ContratoPalabrasIncorrectas.TablaPalabrasIncorrectas.PALABRA};
+                ContratoPalabrasCorrectas.TablaPalabrasCorrectas.PALABRA,
+                ContratoPalabrasCorrectas.TablaPalabrasCorrectas.PALABRAINCORRECTA_ID};
 
         ContentResolver cr = getContentResolver();
 
-        Cursor cur = cr.query(uriPI,
-                new String[]{ContratoPalabrasIncorrectas.TablaPalabrasIncorrectas.PALABRA}, //Columnas a devolver
+        Cursor cur = cr.query(uriPC,
+                projection, //Proyección
                 null,       //Condición de la query
                 null,       //Argumentos variables de la query
                 null);      //Orden de los resultados
@@ -70,23 +80,43 @@ public class ModoExamen extends AppCompatActivity {
 
         assert cur != null;
         while(cur.moveToNext()){
-            Palabra p  = new Palabra();
-            p.setId(cur.getInt(cur.getColumnIndex("_id")));
+            Palabra p = new Palabra();
             p.setPalabra(cur.getString(cur.getColumnIndex("palabra")));
-            Log.v("pruebapalabra", p.getPalabra());
+            p.setPalabraincorrecta_id(cur.getInt(cur.getColumnIndex("palabraincorrecta_id")));
             palabras.add(p);
         }
+        Log.v("ESTADO", palabras.size() +" PALABRAS CORRECTAS");
 
-        for (Palabra pal: palabras){
-            Log.v("PALABRA", pal.toString());
+        //Palabras incorrectas
+        String[] projection2 = new String[] {
+                ContratoPalabrasIncorrectas.TablaPalabrasIncorrectas.PALABRA};
+
+        ContentResolver cr2 = getContentResolver();
+
+        Cursor cur2 = cr2.query(uriPI,
+                projection2, //Columnas a devolver
+                "_ID IN (SELECT palabraincorrecta_id FROM "+ContratoPalabrasCorrectas.TablaPalabrasCorrectas.TABLA+")", //Condición de la query
+                //new String[]{"SELECT palabraincorrecta_id FROM "+ContratoPalabrasCorrectas.TablaPalabrasCorrectas.PALABRAINCORRECTA_ID},       //Argumentos variables de la query
+                null,
+                null);      //Orden de los resultados
+        ArrayList<String> palabras2 = new ArrayList<>();
+
+        assert cur2 != null;
+        while(cur2.moveToNext()){
+            palabras2.add(cur2.getString(cur2.getColumnIndex("palabra")));
         }
+        Log.v("ESTADO", palabras2.size() +" PALABRAS INCORRECTAS");
+
+        /*for (Palabra pal: palabras){
+            Log.v("PALABRA", pal.toString());
+        }*/
 
         //poblamos el recyclerview
-        RecyclerView recView = (RecyclerView)findViewById(R.id.recView);
+        /*RecyclerView recView = (RecyclerView)findViewById(R.id.recView);
         recView.setHasFixedSize(true);
 
-        final AdaptadorPrueba adaptador = new AdaptadorPrueba(palabras);
+        final AdaptadorPrueba adaptador = new AdaptadorPrueba(palabras, palabras2);
         recView.setAdapter(adaptador);
-        recView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));*/
     }
 }

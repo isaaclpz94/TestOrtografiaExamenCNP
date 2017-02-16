@@ -18,26 +18,29 @@ import java.util.ArrayList;
 public class AdaptadorPrueba extends RecyclerView.Adapter<AdaptadorPrueba.ViewHolder> {
 
     private ArrayList<Palabra> datos;
+    private ArrayList<String> datos2;
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
         private TextView txtPalabra;
-        private TextView correcta;
+        private TextView txtPalabra2;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             txtPalabra = (TextView)itemView.findViewById(R.id.txtPalabra);
-            correcta = (TextView)itemView.findViewById(R.id.correcta);
+            txtPalabra2 = (TextView)itemView.findViewById(R.id.txtPalabra2);
         }
 
-        public void bindTitular(Palabra p){
+        public void bindTitular(Palabra p, String p2){
             txtPalabra.setText(p.getPalabra());
+            txtPalabra2.setText(p2);
         }
     }
 
-    public AdaptadorPrueba(ArrayList<Palabra> datos){
+    public AdaptadorPrueba(ArrayList<Palabra> datos, ArrayList<String> datos2){
         this.datos = datos;
+        this.datos2 = datos2;
     }
 
     @Override
@@ -52,7 +55,8 @@ public class AdaptadorPrueba extends RecyclerView.Adapter<AdaptadorPrueba.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Palabra item = datos.get(position);
-        holder.bindTitular(item);
+        String item2 = datos2.get(position);
+        holder.bindTitular(item, item2);
     }
 
     @Override
